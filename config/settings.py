@@ -39,7 +39,7 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-
+THIRD_PARTY_APPS = ["django_countries"]
 # 내가 만들어준 앱
 PROJECT_APPS = [
     "core.apps.CoreConfig",
@@ -47,7 +47,7 @@ PROJECT_APPS = [
     "rooms.apps.RoomsConfig",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS 
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
