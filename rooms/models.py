@@ -1,7 +1,6 @@
 from django.db import models
 from django_countries.fields import CountryField
 from core import models as core_models  # 이름 바꿔줌
-from users import models as users_models
 
 
 class itemAbstract(core_models.TimeStampedModel):
@@ -33,6 +32,20 @@ class RoomType(itemAbstract):
     pass
 
 
+class Photo(core_models.TimeStampedModel):
+
+    """Poto models defination"""
+
+    caption = models.CharField(max_length=80)
+    file = models.ImageField()
+    room = models.ForeignKey(
+        "Room", on_delete=models.CASCADE
+    )  # 파이선은 수직관계 -> String으로 바꿔줌 찾을수있게
+
+    def __str__(self):
+        return self.caption
+
+
 class Room(core_models.TimeStampedModel):
 
     """ Room models defination"""
@@ -49,11 +62,13 @@ class Room(core_models.TimeStampedModel):
     baths = models.IntegerField()
     check_in = models.TimeField()
     instant_book = models.BooleanField(default=False)
-    host = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
-    room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True)
-    amenity = models.ManyToManyField(Amenity, blank=True)
-    facility = models.ManyToManyField(Facility, blank=True)
-    house_rules = models.ManyToManyField(House_rules, blank=True)
+    host = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE
+    )  # String으로 해주면 import 안해줘도됨
+    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
+    amenity = models.ManyToManyField("Amenity", blank=True)
+    facility = models.ManyToManyField("Facility", blank=True)
+    house_rules = models.ManyToManyField("House_rules", blank=True)
 
     def __str__(self):
         return self.name
