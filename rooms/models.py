@@ -39,7 +39,7 @@ class Photo(core_models.TimeStampedModel):
     caption = models.CharField(max_length=80)
     file = models.ImageField()
     room = models.ForeignKey(
-        "Room", related_name="rooms", on_delete=models.CASCADE
+        "Room", related_name="photos", on_delete=models.CASCADE
     )  # 파이선은 수직관계 -> String으로 바꿔줌 찾을수있게
 
     def __str__(self):
@@ -77,3 +77,10 @@ class Room(core_models.TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def total_rating(self):
+        all_reviews = self.reviews.all()
+        all_ratings = []
+        for review in all_reviews:
+            all_ratings.append(review.rating_average())
+
