@@ -4,7 +4,15 @@ from . import models
 
 @admin.register(models.RoomType, models.Amenity, models.Facility, models.House_rules)
 class Roomtype(admin.ModelAdmin):
-    pass
+    
+    list_display = (
+        "name",
+        "used",
+    )
+
+    def userd_by(self, obj):
+        return obj.rooms.count()
+
 
 
 @admin.register(models.Room)
@@ -38,7 +46,13 @@ class RoomAdmin(admin.ModelAdmin):
         "check_in",
         "check_out",
         "instant_book",
+        "count_amenity",
+        "count_photos",
     )
+
+    # 리스트 정렬
+    ordering = ("name", "price", "bedrooms")
+
     # city 와 country는 항상 맨아래
     list_filter = (
         "instant_book",
@@ -57,6 +71,13 @@ class RoomAdmin(admin.ModelAdmin):
         "facility",
         "house_rules",
     )
+
+    # usr 커스텀마이징
+    def count_amenity(self, obj):
+        return obj.amentiy.count()
+
+    def count_photos(self, obj):
+        return obj.photos.count()
 
 
 @admin.register(models.Photo)

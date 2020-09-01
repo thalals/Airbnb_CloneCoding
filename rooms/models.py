@@ -39,7 +39,7 @@ class Photo(core_models.TimeStampedModel):
     caption = models.CharField(max_length=80)
     file = models.ImageField()
     room = models.ForeignKey(
-        "Room", on_delete=models.CASCADE
+        "Room", related_name="rooms", on_delete=models.CASCADE
     )  # 파이선은 수직관계 -> String으로 바꿔줌 찾을수있게
 
     def __str__(self):
@@ -64,12 +64,16 @@ class Room(core_models.TimeStampedModel):
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
     host = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE
+        "users.User", related_name="rooms", on_delete=models.CASCADE
     )  # String으로 해주면 import 안해줘도됨
-    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
-    amenity = models.ManyToManyField("Amenity", blank=True)
-    facility = models.ManyToManyField("Facility", blank=True)
-    house_rules = models.ManyToManyField("House_rules", blank=True)
+    room_type = models.ForeignKey(
+        "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
+    )
+    amenity = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
+    facility = models.ManyToManyField("Facility", related_name="rooms", blank=True)
+    house_rules = models.ManyToManyField(
+        "House_rules", related_name="rooms", blank=True
+    )
 
     def __str__(self):
         return self.name
