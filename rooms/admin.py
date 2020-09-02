@@ -1,18 +1,18 @@
 from django.contrib import admin
+from django.utils.html import mark_safe  # html로 작성한거 보안풀기
 from . import models
 
 
 @admin.register(models.RoomType, models.Amenity, models.Facility, models.House_rules)
 class Roomtype(admin.ModelAdmin):
-    
+
     list_display = (
         "name",
-        "used",
+        "used_by",
     )
 
     def userd_by(self, obj):
         return obj.rooms.count()
-
 
 
 @admin.register(models.Room)
@@ -82,4 +82,13 @@ class RoomAdmin(admin.ModelAdmin):
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
-    pass
+
+    """ Photh Admin Definition """
+
+    list_display = ("__str__", "get_thumnail")
+
+    def get_thumbnail(self, obj):
+
+        return mark_safe('<img width="50px" src ="{obj.file.url}" />')
+
+    get_thumbnail.short_description = "Thumbnail"
