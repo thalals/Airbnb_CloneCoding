@@ -14,3 +14,6 @@ class List(core_models.TimeStampedModel):
     # related_name 은 이 객체를 어떤이름으로 찾을것인지에 관한것
     def __str__(self):
         return self.name
+
+    def count_rooms(self):
+        return self.rooms.count()
