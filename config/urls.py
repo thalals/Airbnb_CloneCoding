@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static  # django에서 제공하는 static 헬퍼
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 ]
+
+if settings.DEBUG:  # DEBUG == True (배포 안했을때 = 개발중일때)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
+

@@ -128,3 +128,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "users.User"  # 장고의 user 모델 지정
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+MEDIA_URL = "/media/"   #/ / 두개는 주소 앞에 media를 가진다
