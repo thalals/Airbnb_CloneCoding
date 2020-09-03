@@ -11,11 +11,18 @@
         <h1>{{room.name}}</h1>
     {% endfor %}
 
-    <h5>Page {{page}} of {{page_count}}</h5>
 
-    {% for page in page_range %}
-        <a href = "?page={{page}}"> {{page}}</a>
-    {% endfor %}
+    <h5>
+    {% if page is not 1 %}
+        <a href="?page={{page|add:-1}}">Previous</a> <!--|add는 템플릿 필터-->
+    {% endif %}
+
+    Page {{page}} of {{page_count}}
+
+    {% if not page==page_count %}
+        <a href="?page={{page|add:1}}">Next</a> <!--|add는 템플릿 필터-->
+    {% endif %}
+    </h5>
 
 
 {% endblock content %}
