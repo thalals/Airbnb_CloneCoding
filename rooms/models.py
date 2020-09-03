@@ -17,19 +17,33 @@ class itemAbstract(core_models.TimeStampedModel):
 
 
 class Amenity(itemAbstract):
-    pass
+    """ AmenityType Model Definition  """
+
+    class Meta:
+        verbose_name_plural = "Amenties"
 
 
 class Facility(itemAbstract):
-    pass
+    """ Facility Model Definition  """
+
+    class Meta:
+        verbose_name_plural = "Facilities"
 
 
 class House_rules(itemAbstract):
-    pass
+    """ HouseRule Model Definition"""
+
+    class Meta:
+        verbose_name = "House Rule"
 
 
 class RoomType(itemAbstract):
-    pass
+    # 각 Room은 여러가지 RoomType을 가질 수 있다. ManyToManyField (N:M)
+    """ RoomType Model Definition  """
+
+    class Meta:
+        verbose_name = "Room Type"  # verbose_name의 경우 접미사를 두되, 문법에 맞게 대문자 조절이 자동
+        # ordering = ["-name"] 순서 정하기 가능
 
 
 class Photo(core_models.TimeStampedModel):
@@ -86,7 +100,8 @@ class Room(core_models.TimeStampedModel):
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
-        for review in all_reviews:
-            all_ratings += review.rating_average()
-
-        return all_ratings / len(all_reviews)
+        if len(all_reviews) > 0:
+            for review in all_reviews:
+                all_ratings += review.rating_average()
+            return round(all_ratings / len(all_reviews))  # 소수점 반올림
+        return 0

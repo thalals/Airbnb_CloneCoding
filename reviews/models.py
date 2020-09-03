@@ -31,5 +31,6 @@ class Review(core_models.TimeStampedModel):
             + self.rocation
             + self.check_in
             + self.value
-        ) /6
-        return round(avg, 2)    #반올림
+        ) / 6
+        return round(avg, 2)  # 반올림
+        rating_average.short_description = "Avg."

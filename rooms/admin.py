@@ -57,6 +57,7 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "count_amenity",
         "count_photos",
+        "total_rating",
     )
 
     # 리스트 정렬
@@ -86,10 +87,12 @@ class RoomAdmin(admin.ModelAdmin):
 
     # usr 커스텀마이징
     def count_amenity(self, obj):
-        return obj.amentiy.count()
+        return obj.amenity.count()
 
     def count_photos(self, obj):
         return obj.photos.count()
+
+    count_photos.short_description = "Photo count"
 
 
 @admin.register(models.Photo)
