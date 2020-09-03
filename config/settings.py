@@ -39,7 +39,7 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
-THIRD_PARTY_APPS = ["django_countries"]
+THIRD_PARTY_APPS = ["django_countries", "django_seed"]
 # 내가 만들어준 앱
 PROJECT_APPS = [
     "core.apps.CoreConfig",
@@ -131,4 +131,5 @@ AUTH_USER_MODEL = "users.User"  # 장고의 user 모델 지정
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
-MEDIA_URL = "/media/"   #/ / 두개는 주소 앞에 media를 가진다
+MEDIA_URL = "/media/"  # / / 두개는 주소 앞에 media를 가진다
+
