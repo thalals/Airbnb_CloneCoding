@@ -11,12 +11,21 @@ class Roomtype(admin.ModelAdmin):
         "used_by",
     )
 
-    def userd_by(self, obj):
+    def used_by(self, obj):
         return obj.rooms.count()
+
+
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
 
 
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
+
+    """ Room Admin Definition """
+
+    inlines = (PhotoInline,)  # Room 어드민 안에서 photo 접근
 
     fieldsets = (
         ("Basic Info", {"fields": ("name", "country", "city", "price",)}),
@@ -63,6 +72,9 @@ class RoomAdmin(admin.ModelAdmin):
         "city",
         "country",
     )
+
+    raw_id_fields = ("host",)  # 호스트 필터링
+
     # city로 먼저 검색하고 없으면 username으로 검색
     search_fields = ("=city", "host__username")
     # Many to many 에서만 사용
@@ -87,8 +99,8 @@ class PhotoAdmin(admin.ModelAdmin):
 
     list_display = ("__str__", "get_thumnail")
 
-    def get_thumbnail(self, obj):
+    def get_thumnail(self, obj):
 
         return mark_safe('<img width="50px" src ="{obj.file.url}" />')
 
-    get_thumbnail.short_description = "Thumbnail"
+    get_thumnail.short_description = "Thumbnail"

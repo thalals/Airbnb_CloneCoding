@@ -35,14 +35,14 @@ class Reservation(core_models.TimeStampedModel):
     def __str__(self):
         return f"{self.room} - {self.check_in}"
 
-    def in_progress(self):
-        now = timezone.now.date()
-
-        return now > self.check_in and now < self.check_out
+    def in_progress(self):  # 방에 사람이 있는가?
+        now = timezone.now().date()
+        return now >= self.check_in and now <= self.check_out
 
     in_progress.boolean = True
 
-    def is_finished(self):
+    def is_finished(self):  # 체크아웃을 했는지
         now = timezone.now().date()
+        return now > self.check_out
 
-        is_finished.boolean = True
+    is_finished.boolean = True
