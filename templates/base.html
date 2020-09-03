@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block page_name %}
+
+        {% endblock page_name %}| 형민bnb
+    </title>
+</head>
+
+<body>
+    <!-- header 쪼갠거 포함하기 -->
+    {% include "partials/header.html" %}
+
+
+    <!-- 자식 템플렛이 넣을수 있는 위치 -->
+    {% block content %} {% endblock %}
+
+
+    {% include "partials/footer.html" %}
+</body>
+
+</html>
