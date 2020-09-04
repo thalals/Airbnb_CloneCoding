@@ -10,15 +10,10 @@
     {{now}} <!--context cbv-->
 
     {% for room in rooms %} <!--Cbv 사용-->
-        <h5>
-            <a href="{% url "rooms:detail" room.pk %}"><!--rooms 는 namespace-->
-                {{room.name}}
-            </a>
-        </h5>
+        <h5>{{room.name}}</h5>
     {% endfor %}
 
 
-    <!-- 페이지 전,다음 버튼--> 
     <h5>
     {% if page_obj.has_previous %}
         <a href="?page={{page_obj.number|add:-1}}">Previous</a> <!--|add는 템플릿 필터-->
