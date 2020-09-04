@@ -2,7 +2,7 @@ from math import ceil  # 올림
 from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage
-from django.http import HttpResponse  # httpresponse 이용
+from django.http import HttpResponse, Http404  # httpresponse 이용
 from django.views.generic import ListView  # CBV
 from . import models
 
@@ -43,5 +43,5 @@ def room_detail(request, pk):
         render(request, " rooms/detail.html", {"room": room})
 
     except models.Room.DoesNotExist:
-        return redirect(reverse("core:home"))
+        raise Http404()  # templates 폴더안에 404html 있으면 알아서 redirect함
 
