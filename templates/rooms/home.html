@@ -7,20 +7,20 @@
 
 {% block content %}
     
-    {% for room in rooms %}
-        <h1>{{room.name}}</h1>
+    {% for room in rooms.object_list %} <!--paginaton 사용-->
+        <h5>{{room.name}}</h5>
     {% endfor %}
 
 
     <h5>
-    {% if page is not 1 %}
-        <a href="?page={{page|add:-1}}">Previous</a> <!--|add는 템플릿 필터-->
+    {% if rooms.has_previous %}
+        <a href="?page={{rooms.number|add:-1}}">Previous</a> <!--|add는 템플릿 필터-->
     {% endif %}
 
-    Page {{page}} of {{page_count}}
+    Page {{rooms.number}} of {{rooms.paginator.num_pages}}
 
-    {% if not page==page_count %}
-        <a href="?page={{page|add:1}}">Next</a> <!--|add는 템플릿 필터-->
+    {% if rooms.has_next %}
+        <a href="?page={{rooms.number|add:1}}">Next</a> <!--|add는 템플릿 필터-->
     {% endif %}
     </h5>
 
