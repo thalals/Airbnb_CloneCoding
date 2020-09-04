@@ -3,10 +3,10 @@ from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse, Http404  # httpresponse 이용
-from django.views.generic import ListView  # CBV
+from django.views.generic import ListView, DetailView  # CBV
 from . import models
 
-
+# fbv
 # def all_rooms(request):
 #     page = request.GET.get("page")
 #     room_list = models.Room.objects.all()
@@ -37,11 +37,17 @@ class HomeView(ListView):
         return context
 
 
-def room_detail(request, pk):
-    try:
-        room = models.objects.get(pk=pk)
-        render(request, " rooms/detail.html", {"room": room})
+# fbv
+# def room_detail(request, pk):
+#     try:
+#         room = models.objects.get(pk=pk)
+#         render(request, " rooms/detail.html", {"room": room})
 
-    except models.Room.DoesNotExist:
-        raise Http404()  # templates 폴더안에 404html 있으면 알아서 redirect함
+#     except models.Room.DoesNotExist:
+#         raise Http404()  # templates 폴더안에 404html 있으면 알아서 redirect함
+
+
+class RoomDetail(DetailView):
+    """ RoomDetail Definition """
+    model = models.Room  # Detailview를 사용하면 자동적으로 pk를 찾음
 
