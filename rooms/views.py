@@ -1,5 +1,5 @@
 from math import ceil  # 올림
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse  # httpresponse 이용
@@ -35,4 +35,13 @@ class HomeView(ListView):
         now = timezone.now()
         context["now"] = now
         return context
+
+
+def room_detail(request, pk):
+    try:
+        room = models.objects.get(pk=pk)
+        render(request, " rooms/detail.html", {"room": room})
+
+    except models.Room.DoesNotExist:
+        return redirect(reverse("core:home"))
 
